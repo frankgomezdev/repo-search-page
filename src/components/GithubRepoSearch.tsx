@@ -1,15 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import RepoCard, { type Repository } from "./RepoCard";
+import "../index.css"
 
 interface GitHubResponse {
  items: Repository[];
-}
-
-type Repository = {
-id: number;
- full_name: string;
- description: string;
- stargazers_count: number;
- updated_at: string;
 }
 
 const fetchRepo = async() => {
@@ -27,15 +21,13 @@ function GithubRepoSearch() {
     })
 
     return(
-        <div className="container">
-            <h1>Github Repository Search</h1>
+        <div className="flex flex-col gap-4 items-center justify-center w-full max-w-4xl mx-auto">
+            <h1 className="text-5xl">Github Repository Search</h1>
             {isLoading && <p>Loading...</p>}
             {isError && <p>No repositories found!</p>}
-            <ul>
                 {repositoryData?.items?.map((repository) => (
-                    <li key={repository.id}>{repository.full_name}</li>
+                    <RepoCard key={repository.id} repository={repository} />
                 ))}
-            </ul>
         </div>
     )
 }
