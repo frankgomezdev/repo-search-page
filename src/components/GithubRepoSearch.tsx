@@ -1,5 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
+interface GitHubResponse {
+ items: Repository[];
+}
+
+type Repository = {
+id: number;
+ full_name: string;
+ description: string;
+ stargazers_count: number;
+ updated_at: string;
+}
 
 const fetchRepo = async() => {
     const response = await fetch('https://api.github.com/search/repositories?q=nextjs');
@@ -10,7 +21,7 @@ const fetchRepo = async() => {
 }
 
 function GithubRepoSearch() {
-    const { data: repositoryData, isLoading, isError } = useQuery({
+    const { data: repositoryData, isLoading, isError } = useQuery<GitHubResponse>({
         queryKey: ['repositories'],
         queryFn: fetchRepo
     })
@@ -22,7 +33,7 @@ function GithubRepoSearch() {
             {isError && <p>No repositories found!</p>}
             <ul>
                 {repositoryData?.items?.map((repository) => (
-                    <li>{repository.name}</li>
+                    <li key={repository.id}>{repository.full_name}</li>
                 ))}
             </ul>
         </div>
