@@ -1,9 +1,15 @@
-import './App.css'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./App.css";
+import GithubRepoSearch from "./components/GithubRepoSearch";
+
+const queryClient = new QueryClient;
 
 function App() {
-  return(
-    <h1>Github Search Page</h1>
-  )
+  return (
+    <QueryClientProvider client={queryClient}>
+      <GithubRepoSearch />
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
