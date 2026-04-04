@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import "../index.css";
 
 export type Repository = {
@@ -17,16 +18,16 @@ function RepoCard({ repository }: { repository: Repository }) {
         {repository.full_name}
       </a>
       <p className="text-base">{repository.description}</p>
-      <div className="mt-3">
+      <div className="flex flex-wrap mt-3 gap-2">
         {repository.topics.map((topic) => (
-          <span className="bg-gray-500 text-sm text-white p-1 mr-1 rounded leading-8">
+          <span className="bg-gray-500 text-sm text-white p-1 mr-2 rounded leading-8">
             {topic}
           </span>
         ))}
       </div>
       <div className="text-gray-500 text-xs flex gap-2 mt-3">
         <span>{repository.stargazers_count} stars</span>
-        <span>{repository.updated_at}</span>
+        <span>Updated {format(new Date(repository.updated_at), "MMM d, yy 'at' h:mm a")}</span>
       </div>
     </div>
   );
