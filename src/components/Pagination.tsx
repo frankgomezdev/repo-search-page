@@ -14,9 +14,10 @@ function Pagination({ currentPage, perPage, totalCount, onPageChange }: PageProp
   const lastPage =
     allPages[allPages.length - 1] > 100 ? 100 : allPages[allPages.length - 1];
   const startIndex = currentPage - 3 > 1 ? currentPage - 3 : 1;
-  const endIndex = currentPage + 2;
+  const endIndex = Math.min(currentPage + 2, lastPage);
   const middlePages = allPages.slice(startIndex, endIndex);
-  const visiblePages = [allPages[0], ...middlePages, lastPage];
+  const visiblePages = [...new Set([1, ...middlePages, lastPage])];
+
 
   return (
     <ul className="flex gap-3 my-3 justify-center">
