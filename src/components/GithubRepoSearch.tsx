@@ -24,7 +24,7 @@ const fetchRepo = async (params: SearchParams) => {
     sort: params.sortBy === "best-match" ? "" : params.sortBy,
   });
   const response = await fetch(
-    `https://api.github.com/search/repositories?q=${urlParams}`,
+    `https://api.github.com/search/repositories?${urlParams}`,
   );
   if (!response.ok) {
     throw new Error("Unable to fetch repositories.");
