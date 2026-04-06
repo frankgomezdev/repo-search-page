@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { formatDistanceToNow, parseISO } from "date-fns";
 import "../index.css";
 
 export type Repository = {
@@ -27,7 +27,7 @@ function RepoCard({ repository }: { repository: Repository }) {
       </div>
       <div className="text-gray-500 text-xs flex gap-2 mt-3">
         <span>{repository.stargazers_count} stars</span>
-        <span>Updated {format(new Date(repository.updated_at), "MMM d, yy 'at' h:mm a")}</span>
+        <span>Updated {formatDistanceToNow(parseISO(repository.updated_at), {addSuffix: true})}</span>
       </div>
     </div>
   );

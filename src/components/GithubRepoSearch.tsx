@@ -59,6 +59,7 @@ function GithubRepoSearch() {
       <form className="flex flex-col" action={handleSubmit}>
         <input
           name="searchInput"
+          defaultValue={searchInput}
           type="text"
           placeholder="Search for repositories.."
           className="w-full border border-gray-900 bg-gray-100 p-2 mb-2 rounded"

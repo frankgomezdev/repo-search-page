@@ -3,13 +3,17 @@ import RepoCard from "../components/RepoCard";
 import { expect } from "vitest";
 
 describe("repo card functionality", () => {
+    afterEach(() => {
+        vi.useRealTimers();
+    });
+
     const mockRepository = {
             id: 12345,
             html_url: "https://github.com/frankgomezdev/repo-search-page",
             full_name: "repo-search-page",
             description: "abcd",
             stargazers_count: 2,
-            updated_at: "2026-03-31T15:03:47Z",
+            updated_at: "2026-04-06T09:00:00Z",
             topics: ["react", "javascript", "css", "html"],
         }
     it("renders the full name of the repository", () => {
@@ -33,7 +37,10 @@ describe("repo card functionality", () => {
     });
 
     it("renders the date and time of the last update within repository", () => {
+        vi.useFakeTimers();
+        vi.setSystemTime(new Date("2026-04-06T12:00:00Z"));
+
         render(<RepoCard repository={mockRepository}/>)
-        expect(screen.getByText("Updated Mar 31, 26 at 11:03 AM")).toBeInTheDocument()
+        expect(screen.getByText("Updated about 3 hours ago")).toBeInTheDocument()
     });
 });
